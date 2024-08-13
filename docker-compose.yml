@@ -3,6 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:16
+    container_name: my-postgres
     environment:
       POSTGRES_DB: posgtres
       POSTGRES_USER: postgres
@@ -19,6 +20,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: nest-api
     ports:
       - "4200:4200"
     restart: always
