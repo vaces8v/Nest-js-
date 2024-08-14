@@ -63,4 +63,14 @@ export class LikesService {
 
     return {Count: count};
   }
+
+  async getUserLikesByPostId(postId: number) {
+    const likes = await this.prisma.like.findMany({
+      where: { postId },
+      select: { userId: true },
+    });
+  
+    return likes.map(like => like.userId);
+  }
+  
 }

@@ -31,4 +31,10 @@ export class LikesController {
   async getLikesCount(@Param('postId') postId: number) {
     return this.likesService.getLikesCount(+postId);
   }
+
+  @ApiOperation({ summary: "Получить ID пользователей, которые лайкнули пост" })
+  @Get(':postId/userIds')
+  async getUserLikesByPostId(@Param('postId') postId: number) {
+  return this.likesService.getUserLikesByPostId(+postId);
+}
 }
