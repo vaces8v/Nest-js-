@@ -57,6 +57,15 @@ export class UserService {
     }));
   }
 
+  async getMyData(userId) {
+    const user = await this.prisma.user.findUnique({
+      where: {id: userId},
+      include: {profile: true}
+    })
+
+    return user
+  }
+
   async findOne(id: number) {
     const user = await this.prisma.user.findUnique({
       where: {id},

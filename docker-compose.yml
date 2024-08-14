@@ -6,15 +6,17 @@ services:
     container_name: my-postgres
     environment:
       POSTGRES_DB: posgtres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: vaces8v
+      POSTGRES_PASSWORD: 66768932
     ports:
       - "5432:5432"
     restart: always
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - p_data:/var/lib/postgresql/data
     networks:
       - app-network
+    profiles:
+      - database
 
   api:
     build:
@@ -26,12 +28,12 @@ services:
     restart: always
     networks:
       - app-network
-    depends_on:
-      - postgres
+    profiles:
+      - nest-profile
 
 networks:
   app-network:
     driver: bridge
 
 volumes:
-  postgres_data:
+  p_data:

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Request, Body, Patch, Param, Delete, ParseIntPipe, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -22,6 +22,16 @@ export class UserController {
   @Get()
   findAll() {
     return this.userService.findAll();
+  }
+
+  @ApiOperation({ summary: 'Мои данные' })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @UsePipes(new ValidationPipe())
+  @Get('my')
+  getMyData(@Request() req) {
+    const userId = req.user.userId;
+    return this.userService.getMyData(userId);
   }
 
   @ApiOperation({ summary: 'Найти по id' })

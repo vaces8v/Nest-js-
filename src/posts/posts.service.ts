@@ -50,8 +50,16 @@ export class PostsService {
           select: {
             id: true
           }
+        },
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            profile: true
+          }
         }
-      }
+      },
     }).then(posts => {
       return posts.map(post => ({
         ...post,

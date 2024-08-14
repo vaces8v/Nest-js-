@@ -15,4 +15,4 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/prisma ./prisma
 RUN npx prisma generate
 RUN npm install --production
-CMD ["node", "dist/main.js"]
+CMD ["sh", "-c", "npx prisma db push && node dist/main.js"]
